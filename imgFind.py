@@ -35,3 +35,4 @@ def getPict(descript):
 	f = open(dir + image_type + "_"+ str(cntr)+".jpg", 'wb')
 	f.write(raw_img)
 	f.close()
+	return image
