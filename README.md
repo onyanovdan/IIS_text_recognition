@@ -16,3 +16,5 @@
 	pip install requests
 	pip install lxml
 	pip install rutermextract
+	pip install pymorphy
+	pip install zipfile

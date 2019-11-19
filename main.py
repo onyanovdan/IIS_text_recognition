@@ -43,7 +43,7 @@ for p_indx, paragr in enumerate(paragraphs):
             print(key_words_arr)
             img = None
             if key_words_arr[0] != '':
-              img = I.get_pict(key_words_arr[0])
+              img, term = I.get_pict(key_words_arr[0])
             if img == None and key_words_arr[1] != '':
-                img = I.get_pict(key_words_arr[1])
-            print(img)
+                img, term = I.get_pict(key_words_arr[1])
+            print(img, term)

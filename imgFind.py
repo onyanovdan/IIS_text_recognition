@@ -41,10 +41,11 @@ def find_pict(descript):
 def get_pict(text):	
 	term_extractor = TermExtractor()
 	for term in term_extractor(text, nested=True):
-		print(term.normalized)
-		result = find_pict(term.normalized)
+		norm_term = term.normalized
+		print(norm_term)
+		result = find_pict(norm_term)
 		if result:
-			return result
+			return result, norm_term
 	return
 		
 #get_pict('Съешь ещё этих мягких французских булок да выпей же чаю.')
