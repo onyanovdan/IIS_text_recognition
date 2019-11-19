@@ -24,7 +24,10 @@ def find_pict(descript):
 	soup = get_soup(url,header)
 	#print(soup)
 	#image = soup.a.find_next("img", class_="serp-item__thumb")['src'] яндекс
-	image = soup.a.find_next("img", class_="file-container__image")['src']
+	try:
+		image = soup.a.find_next("img", class_="file-container__image")['src']
+	except:
+		image = ''
 	#image='https:'+image яндекс
 	#print(image)
 	#raw_img = urlopen(image).read()
