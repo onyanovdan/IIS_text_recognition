@@ -37,13 +37,13 @@ morph = pymorphy2.MorphAnalyzer()
 result_buf = []
 for p_indx, paragr in enumerate(paragraphs):
     images = []
-    paragr_split = re.split("[^\\w\\s-]", paragr)#paragr.split()
+    paragr_split = re.split(R.re_split, paragr)#paragr.split()
     # print(paragr_split)
     for w_indx, word in enumerate(paragr_split):
         norm_word = morph.parse(word)[norm_word_order].normal_form
         # print(norm_word)
         if norm_word in  triggered_words:
-            # print('found - ' + norm_word)
+            print('found - ' + norm_word)
             _image = []
             key_words_arr = getTwoSubSplitsStr(paragr_split, w_indx)
             print(key_words_arr)

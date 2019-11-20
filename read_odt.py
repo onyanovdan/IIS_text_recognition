@@ -6,6 +6,8 @@ import re
 
 import sys, zipfile, io
 
+re_split = "\\s"#"[^\\w\\d-]"
+
 def getParagraphsFromODT(filename):
     myFile  = zipfile.ZipFile(filename)
     listOfFiles = myFile.infolist()
@@ -21,7 +23,7 @@ def getParagraphsFromODT(filename):
     return texts
 
 def insertImage(text, word_place, value):
-    text_split = re.split("[^\\w\\s-]", text)
+    text_split = re.split(re_split, text)
     text_split.insert(word_place, value)
     return " ".join(text_split)
 def writeUpdatedODT(fileName, images_buf):
@@ -58,7 +60,7 @@ def writeUpdatedODT(fileName, images_buf):
             count_images += len(images_buf[x_indx])
         except IndexError as e:
             print(e, x_indx, file = sys.stderr)
-        html_file.write(_str + '\n')
+        html_file.write(_str + '\n\r')
         xml.string = _str
 
     html_file.close()
