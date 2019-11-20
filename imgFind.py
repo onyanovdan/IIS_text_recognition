@@ -46,7 +46,10 @@ def get_pict(text):
 	for term in term_extractor(text, nested=True):
 		norm_term = term.normalized
 		print(norm_term)
-		result = find_pict(norm_term)
+		try:
+			result = find_pict(norm_term)
+		except:
+			result = "index.jpg"
 		if result:
 			return result, norm_term
 	return
