@@ -1,16 +1,18 @@
 import read_odt as R
 import pymorphy2
 import imgFind as I
+import re
 
 norm_word_order = 0 #может сломаться, если индекс выйдет за диапазон
 fileName = 'текст.odt'
 triggered_words = ['проиллюстрировать'
                    ,'показать'
-                   ,'пример'
+                   # ,'пример'
                    ,'увидеть'
                    ,'рисунок'
+                   ,'например'
                     ]
-key_words_count = 4
+key_words_count = 5
 right_key_words_first = True
 
 def splitToString(word_arr):
@@ -35,11 +37,12 @@ morph = pymorphy2.MorphAnalyzer()
 result_buf = []
 for p_indx, paragr in enumerate(paragraphs):
     images = []
-    paragr_split = paragr.split()
-    for w_indx, word in enumerate(paragr.split()):
+    paragr_split = re.split("[^\\w\\s-]", paragr)#paragr.split()
+    # print(paragr_split)
+    for w_indx, word in enumerate(paragr_split):
         norm_word = morph.parse(word)[norm_word_order].normal_form
         # print(norm_word)
-        if norm_word in triggered_words:
+        if norm_word in  triggered_words:
             # print('found - ' + norm_word)
             _image = []
             key_words_arr = getTwoSubSplitsStr(paragr_split, w_indx)
