@@ -11,7 +11,7 @@ triggered_words = ['проиллюстрировать'
                    ,'рисунок'
                    ,'например'
                     ]
-key_words_count = 5
+key_words_count = 4
 right_key_words_first = True
 
 def splitToString(word_arr):
