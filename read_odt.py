@@ -68,18 +68,18 @@ def writeUpdatedODT(fileName, images_buf):
     count_images = 0
     for x_indx, xml in enumerate(xmls.split('\n')):
         _str = xml
-        print(x_indx)
+        # print(x_indx)
         try:
             for i_indx, image in reversed(list(enumerate(images_buf[x_indx]))):
-                print(_str)
+                # print(_str)
                 _str = insertImage(_str, image[0], image[1], 'Рис. ' + str(count_images + i_indx + 1) + ' ' + image[2] + ' <img src="' + image[3] + '">')
-                print(_str)
+                # print(_str)
             count_images += len(images_buf[x_indx])
         except IndexError as e:
             print(e, x_indx, file = sys.stderr)
-            print(_str)
-            print(image)
-            print(images_buf)
+            # print(_str)
+            # print(image)
+            # print(images_buf)
         html_file.write(_str + '\n\r')
         # xml.string = _str
 
