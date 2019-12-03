@@ -6,7 +6,8 @@ import re
 
 import sys, zipfile, io
 
-re_split = "\\s"#"[^\\w\\d-]"
+re_word_split = "\\s"#"[^\\w\\d-]"
+re_sentence_split = "(?<!www)[.?!](?!com)"
 
 def readFile(fileName):
     file = open(fileName, 'r') #, encoding='ascii'
@@ -28,10 +29,15 @@ def getParagraphsFromODT(filename):
     # print(xmls)
     return texts
 
-def insertImage(text, word_place, value):
-    text_split = re.split(re_split, text)
-    text_split.insert(word_place, value)
-    return " ".join(text_split)
+def insertIntoSentence(sentence, word_place, value):
+    word_split = re.split(re_word_split, sentence)
+    word_split.insert(word_place, value)
+    return " ".join(word_split)
+def insertImage(text, sentence_numb, word_place, value):
+    sentence_split = re.split(re_sentence_split, text)
+    sentence = sentence_split[sentence_numb]
+    sentence_split[sentence_numb] = insertIntoSentence(sentence, word_place, value)
+    return ". ".join(sentence_split)
 def writeUpdatedODT(fileName, images_buf):
     # os.system('copy ' + fileName + ' updated_' + fileName)
     file = os.path.basename(fileName)
@@ -62,13 +68,18 @@ def writeUpdatedODT(fileName, images_buf):
     count_images = 0
     for x_indx, xml in enumerate(xmls.split('\n')):
         _str = xml
-        # print(x_indx)
+        print(x_indx)
         try:
             for i_indx, image in reversed(list(enumerate(images_buf[x_indx]))):
-                _str = insertImage(_str, image[0], 'Рис. ' + str(count_images + i_indx + 1) + ' ' + image[1] + ' <img src="' + image[2] + '">')
+                print(_str)
+                _str = insertImage(_str, image[0], image[1], 'Рис. ' + str(count_images + i_indx + 1) + ' ' + image[2] + ' <img src="' + image[3] + '">')
+                print(_str)
             count_images += len(images_buf[x_indx])
         except IndexError as e:
             print(e, x_indx, file = sys.stderr)
+            print(_str)
+            print(image)
+            print(images_buf)
         html_file.write(_str + '\n\r')
         # xml.string = _str
 
