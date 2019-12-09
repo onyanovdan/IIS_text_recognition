@@ -12,7 +12,9 @@ def getParagraphsFromODT(filename):
     for s in listOfFiles:
         if s.orig_filename == 'content.xml':
             content = myFile.read(s.orig_filename).decode("utf-8")
+            print(content)
             doc = BeautifulSoup(content, features=u"lxml")
+            exit()
             xmls = doc.findAll('text:p')
     for xml in xmls:
         texts.append(xml.text)
