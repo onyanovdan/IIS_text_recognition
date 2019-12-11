@@ -72,7 +72,7 @@ def writeUpdatedODT(fileName, images_buf):
         try:
             for i_indx, image in reversed(list(enumerate(images_buf[x_indx]))):
                 # print(_str)
-                _str = insertImage(_str, image[0], image[1], 'Рис. ' + str(count_images + i_indx + 1) + ' ' + image[2] + ' <img src="' + image[3] + '">')
+                _str = insertImage(_str, image[0], image[1], '<figure> Рис. ' + str(count_images + i_indx + 1) + ' ' + image[2] + ' <img src="' + image[3] + '"></figure>')
                 # print(_str)
             count_images += len(images_buf[x_indx])
         except IndexError as e:
@@ -80,7 +80,7 @@ def writeUpdatedODT(fileName, images_buf):
             # print(_str)
             # print(image)
             # print(images_buf)
-        html_file.write(_str + '\n\r')
+        html_file.write(_str + '<p>\n\r')
         # xml.string = _str
 
     html_file.close()
